@@ -79,6 +79,7 @@ pub use hdfs_2_7::*;
 #[cfg(feature = "hdfs_2_8")]
 mod hdfs_2_8;
 #[cfg(feature = "hdfs_2_8")]
+#[allow(unused_imports)]
 pub use hdfs_2_8::*;
 #[cfg(feature = "hdfs_2_9")]
 mod hdfs_2_9;
@@ -87,6 +88,7 @@ pub use hdfs_2_9::*;
 #[cfg(feature = "hdfs_2_10")]
 mod hdfs_2_10;
 #[cfg(feature = "hdfs_2_10")]
+#[allow(unused_imports)]
 pub use hdfs_2_10::*;
 #[cfg(feature = "hdfs_3_0")]
 mod hdfs_3_0;
@@ -95,10 +97,12 @@ pub use hdfs_3_0::*;
 #[cfg(feature = "hdfs_3_1")]
 mod hdfs_3_1;
 #[cfg(feature = "hdfs_3_1")]
+#[allow(unused_imports)]
 pub use hdfs_3_1::*;
 #[cfg(feature = "hdfs_3_2")]
 mod hdfs_3_2;
 #[cfg(feature = "hdfs_3_2")]
+#[allow(unused_imports)]
 pub use hdfs_3_2::*;
 #[cfg(feature = "hdfs_3_3")]
 mod hdfs_3_3;
