@@ -61,10 +61,12 @@ pub use hdfs_2_3::*;
 #[cfg(feature = "hdfs_2_4")]
 mod hdfs_2_4;
 #[cfg(feature = "hdfs_2_4")]
+#[allow(unused_imports)]
 pub use hdfs_2_4::*;
 #[cfg(feature = "hdfs_2_5")]
 mod hdfs_2_5;
 #[cfg(feature = "hdfs_2_5")]
+#[allow(unused_imports)]
 pub use hdfs_2_5::*;
 #[cfg(feature = "hdfs_2_6")]
 mod hdfs_2_6;

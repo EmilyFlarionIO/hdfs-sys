@@ -211,6 +211,12 @@ fn build_libhdfs() -> Result<()> {
         }
     }
 
+    #[cfg(not(feature = "vendored"))]
+    {
+        println!("cargo:warning=Building libhdfs from source as a fallback, \
+        if you are encountering issues with missing headers on JDK8, consider enabling the `vendored` feature.");
+    }
+
     builder.compile("hdfs");
     Ok(())
 }
