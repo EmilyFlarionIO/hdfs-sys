@@ -47,19 +47,19 @@ jobs:
           java-version: '8'
 
       # Add jvm.dll in PATH to make sure windows can find it.
-      - name: Update path for windows
-        if: matrix.os == 'windows-latest'
-        run: |
-          echo "${{ steps.setup_java.outputs.path }}\lib" >> $GITHUB_PATH
-          echo "${{ steps.setup_java.outputs.path }}\jre\bin\server" >> $GITHUB_PATH
-          echo "LIB=${LIB};${{ steps.setup_java.outputs.path }}\lib;${{ steps.setup_java.outputs.path }}\jre\bin\server" >> $GITHUB_ENV
+#      - name: Update path for windows
+#        if: matrix.os == 'windows-latest'
+#        run: |
+#          echo "${{ steps.setup_java.outputs.path }}\lib" >> $GITHUB_PATH
+#          echo "${{ steps.setup_java.outputs.path }}\jre\bin\server" >> $GITHUB_PATH
+#          echo "LIB=${LIB};${{ steps.setup_java.outputs.path }}\lib;${{ steps.setup_java.outputs.path }}\jre\bin\server" >> $GITHUB_ENV
 
       # Add libjvm.dylib in RPATH to make sure macos can find it.
-      - name: Update path for macos
-        if: matrix.os == 'macos-latest'
-        run: |
-          mkdir -p ~/lib
-          ln -s ${{ steps.setup_java.outputs.path }}/jre/lib/server/libjvm.dylib ~/lib/
+#      - name: Update path for macos
+#        if: matrix.os == 'macos-latest'
+#        run: |
+#          mkdir -p ~/lib
+#          ln -s ${{ steps.setup_java.outputs.path }}/jre/lib/server/libjvm.dylib ~/lib/
 
       - name: Build
         run: cargo build --features ${{ matrix.feature }}
@@ -68,4 +68,4 @@ jobs:
         env:
           RUST_LOG: DEBUG
           RUST_BACKTRACE: full
-          LD_LIBRARY_PATH: ${{ env.JAVA_HOME }}/lib/server:${{ env.JAVA_HOME }}/lib/amd64/server:${{ env.JAVA_HOME }}/jre/lib/server:${{ env.JAVA_HOME }}/jre/lib/amd64/server
+#          LD_LIBRARY_PATH: ${{ env.JAVA_HOME }}/lib/server:${{ env.JAVA_HOME }}/lib/amd64/server:${{ env.JAVA_HOME }}/jre/lib/server:${{ env.JAVA_HOME }}/jre/lib/amd64/server
