@@ -28,10 +28,10 @@ fn find_jvm() -> Result<()> {
     println!("cargo:rustc-link-lib=jvm");
     println!("cargo:rustc-link-search=native={jvm_path}");
 
-    // For mac we need to manually add the jvm dir to rpath
-    #[cfg(target_os = "macos")]
+    // Add JVM to rpath
     println!("cargo:rustc-link-arg=-Wl,-rpath,{jvm_path}");
 
+    // Export the used JVM_PATH as metadata, in case a crate needs it in order to link
     println!("cargo:metadata=JVM_PATH={jvm_path}");
 
     // Add jvm.lib into search path for windows.
