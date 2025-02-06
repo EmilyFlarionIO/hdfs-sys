@@ -32,6 +32,8 @@ fn find_jvm() -> Result<()> {
     #[cfg(target_os = "macos")]
     println!("cargo:rustc-link-arg=-Wl,-rpath,{jvm_path}");
 
+    println!("cargo:metadata=JVM_PATH={jvm_path}");
+
     // Add jvm.lib into search path for windows.
     #[cfg(windows)]
     if let Ok(jvm_lib_path) = java_locator::locate_file("jvm.lib") {
