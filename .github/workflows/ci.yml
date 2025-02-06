@@ -43,7 +43,7 @@ jobs:
       - uses: actions/setup-java@v4
         id: setup_java
         with:
-          distribution: 'temurin'
+          distribution: 'corretto'
           java-version: '8'
 
       # Add jvm.dll in PATH to make sure windows can find it.
@@ -63,9 +63,12 @@ jobs:
 
       - name: Build
         run: cargo build --features ${{ matrix.feature }}
+        env:
+          JAVA_HOME: ""
       - name: Test
         run: cargo test --features ${{ matrix.feature }} -- --nocapture
         env:
           RUST_LOG: DEBUG
           RUST_BACKTRACE: full
+          JAVA_HOME: ""
 #          LD_LIBRARY_PATH: ${{ env.JAVA_HOME }}/lib/server:${{ env.JAVA_HOME }}/lib/amd64/server:${{ env.JAVA_HOME }}/jre/lib/server:${{ env.JAVA_HOME }}/jre/lib/amd64/server
