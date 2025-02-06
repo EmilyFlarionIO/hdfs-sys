@@ -38,7 +38,8 @@ jobs:
           "hdfs_3_3",
         ]
 
-    # We set JAVA_HOME and JAVA_HOME_8_ARM64 to ensure compilation works out of the box for all targets
+    # We set JAVA_HOME, JAVA_HOME_8_X64 and JAVA_HOME_8_ARM64,
+    # to ensure compilation works out of the box for all targets
     # A user can manually specify JAVA_HOME to use their own distribution
     steps:
       - uses: actions/checkout@v4
@@ -52,6 +53,7 @@ jobs:
         run: cargo build --features ${{ matrix.feature }},vendored
         env:
           JAVA_HOME: ""
+          JAVA_HOME_8_X64: ""
           JAVA_HOME_8_ARM64: ""
 
       - name: Test
@@ -60,4 +62,5 @@ jobs:
           RUST_LOG: DEBUG
           RUST_BACKTRACE: full
           JAVA_HOME: ""
+          JAVA_HOME_8_X64: ""
           JAVA_HOME_8_ARM64: ""
