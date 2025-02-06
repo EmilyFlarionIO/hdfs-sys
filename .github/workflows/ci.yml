@@ -55,18 +55,18 @@ jobs:
 #          echo "LIB=${LIB};${{ steps.setup_java.outputs.path }}\lib;${{ steps.setup_java.outputs.path }}\jre\bin\server" >> $GITHUB_ENV
 
       # Add libjvm.dylib in RPATH to make sure macos can find it.
-#      - name: Update path for macos
-#        if: matrix.os == 'macos-latest'
-#        run: |
-#          mkdir -p ~/lib
-#          ln -s ${{ steps.setup_java.outputs.path }}/jre/lib/server/libjvm.dylib ~/lib/
+      - name: Update path for macos
+        if: matrix.os == 'macos-latest'
+        run: |
+          mkdir -p ~/lib
+          ln -s ${{ steps.setup_java.outputs.path }}/jre/lib/server/libjvm.dylib ~/lib/
 
       - name: Build
-        run: cargo build --features ${{ matrix.feature }}
+        run: cargo build --features ${{ matrix.feature }},vendored
         env:
           JAVA_HOME: ""
       - name: Test
-        run: cargo test --features ${{ matrix.feature }} -- --nocapture
+        run: cargo test --features ${{ matrix.feature }},vendored -- --nocapture
         env:
           RUST_LOG: DEBUG
           RUST_BACKTRACE: full
