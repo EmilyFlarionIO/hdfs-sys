@@ -28,11 +28,14 @@ fn find_jvm() -> Result<()> {
     println!("cargo:rustc-link-lib=jvm");
     println!("cargo:rustc-link-search=native={jvm_path}");
 
+    // For mac we need to manually add the jvm dir to rpath
+    #[cfg(target_os = "macos")]
+    println!("cargo:rustc-link-arg=-Wl,-rpath,{jvm_path}");
+
     // Add jvm.lib into search path for windows.
-    if cfg!(windows) {
-        if let Ok(jvm_lib_path) = java_locator::locate_file("jvm.lib") {
-            println!("cargo:rustc-link-search=native={jvm_lib_path}");
-        }
+    #[cfg(windows)]
+    if let Ok(jvm_lib_path) = java_locator::locate_file("jvm.lib") {
+        println!("cargo:rustc-link-search=native={jvm_lib_path}");
     }
 
     Ok(())
@@ -76,7 +79,11 @@ fn build_libhdfs() -> Result<()> {
 
     let mut builder = cc::Build::new();
     builder.warnings(false);
+
+    // This flag does not work on windows, just throws warnings
+    #[cfg(not(windows))]
     builder.static_flag(true);
+
     builder.static_crt(true);
 
     // Ignore all warnings from cc as we don't care about code written by Apache Hadoop.
